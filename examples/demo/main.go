@@ -13,9 +13,9 @@ import (
 
 	"github.com/ubgo/entkit/encryptedtype"
 	"github.com/ubgo/entkit/jsonmap"
+	"github.com/ubgo/entkit/passwordtype"
 	"github.com/ubgo/jsonslice"
 	"github.com/ubgo/jsontype"
-	"github.com/ubgo/entkit/passwordtype"
 )
 
 // scanValue simulates the database round-trip: take a driver.Value,
