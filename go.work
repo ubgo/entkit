@@ -1,0 +1,13 @@
+go 1.25.0
+
+use (
+	./jsonmap
+	./passwordtype
+	./encryptedtype
+	./ent_jsontype
+	./ent_jsonslice
+	./ent_jsonmap
+	./ent_passwordtype
+	./ent_encryptedtype
+	./examples
+)

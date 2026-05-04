@@ -1,0 +1,48 @@
+version: "3"
+
+# Multi-module repo: each sub-module has its own go.mod. We iterate
+# over them rather than relying on `go test ./...` from the root,
+# because that would only walk modules listed in go.work.
+
+vars:
+  MODULES: jsonmap passwordtype encryptedtype ent_jsontype ent_jsonslice ent_jsonmap ent_passwordtype ent_encryptedtype examples
+
+tasks:
+  default:
+    cmds: [task --list]
+
+  test:
+    desc: Run tests in every sub-module
+    cmds:
+      - for: { var: MODULES }
+        cmd: cd {{.ITEM}} && go test ./...
+
+  test:race:
+    desc: Run tests with the race detector in every sub-module
+    cmds:
+      - for: { var: MODULES }
+        cmd: cd {{.ITEM}} && go test -race ./...
+
+  vet:
+    desc: Run go vet in every sub-module
+    cmds:
+      - for: { var: MODULES }
+        cmd: cd {{.ITEM}} && go vet ./...
+
+  lint:
+    desc: Run golangci-lint in every sub-module
+    cmds:
+      - for: { var: MODULES }
+        cmd: cd {{.ITEM}} && golangci-lint run ./...
+
+  tidy:
+    desc: Run go mod tidy in every sub-module
+    cmds:
+      - for: { var: MODULES }
+        cmd: cd {{.ITEM}} && go mod tidy
+
+  ci:
+    desc: Full local CI suite
+    cmds:
+      - task: vet
+      - task: test:race
