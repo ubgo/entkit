@@ -130,7 +130,7 @@ func TestEncryptedString_ZeroValue_Value(t *testing.T) {
 }
 
 func TestEncryptedString_NotConfigured(t *testing.T) {
-	defer SetKey(testKey)
+	defer func() { _ = SetKey(testKey) }()
 	Reset()
 
 	v := New("x")
