@@ -2,7 +2,7 @@
 // creates a User row exercising every entkit column type, reads it back,
 // and verifies the round-trip. No external services required.
 //
-//   go run ./cmd/demo
+//	go run ./cmd/demo
 package main
 
 import (
