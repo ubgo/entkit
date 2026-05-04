@@ -10,12 +10,21 @@ import (
 )
 
 // Field returns an ent.Field for a jsonslice.JsonSlice column. The
-// column is stored as JSON / JSONB at the SQL layer.
+// underlying ent type is Bytes (rather than JSON) so the generated
+// code uses JsonSlice's Scanner/Valuer directly rather than re-running
+// json.Unmarshal on top of an already-scanned slice. SchemaType pins
+// the column to JSON / JSONB at the SQL layer for queryability.
 //
-// For Optional, Immutable, dialect-specific column type, etc., compose
+// For Optional, Immutable, custom dialect column types, etc., compose
 // directly:
 //
-//	field.JSON("tags", jsonslice.JsonSlice{}).Optional().SchemaType(...)
+//	field.Bytes("tags").GoType(jsonslice.JsonSlice{}).Optional().SchemaType(...)
 func Field(name string) ent.Field {
-	return field.JSON(name, jsonslice.JsonSlice{})
+	return field.Bytes(name).
+		GoType(jsonslice.JsonSlice{}).
+		SchemaType(map[string]string{
+			"postgres": "jsonb",
+			"mysql":    "json",
+			"sqlite3":  "json",
+		})
 }

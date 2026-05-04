@@ -1,0 +1,25 @@
+version: "3"
+
+tasks:
+  default:
+    cmds: [task --list]
+
+  generate:
+    desc: Run ent code generation from ./ent/schema
+    cmds: [go generate ./ent]
+
+  demo:
+    desc: Run the end-to-end demo (in-memory SQLite + auto-migrate + ent CRUD)
+    cmds: [go run ./cmd/demo]
+
+  build:
+    cmds: [go build ./...]
+
+  vet:
+    cmds: [go vet ./...]
+
+  ci:
+    cmds:
+      - task: vet
+      - task: build
+      - task: demo

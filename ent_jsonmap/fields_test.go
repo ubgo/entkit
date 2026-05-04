@@ -12,8 +12,11 @@ func TestField_Descriptor(t *testing.T) {
 	if d.Name != "metadata" {
 		t.Fatalf("Name = %q, want metadata", d.Name)
 	}
-	if d.Info == nil || d.Info.Type != field.TypeJSON {
-		t.Fatalf("Info.Type = %v, want TypeJSON", d.Info)
+	if d.Info == nil || d.Info.Type != field.TypeBytes {
+		t.Fatalf("Info.Type = %v, want TypeBytes", d.Info)
+	}
+	if d.SchemaType["postgres"] != "jsonb" {
+		t.Fatalf("postgres SchemaType = %q, want jsonb", d.SchemaType["postgres"])
 	}
 	if d.Err != nil {
 		t.Fatalf("Descriptor.Err = %v", d.Err)
