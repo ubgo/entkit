@@ -44,7 +44,7 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("ent.Open: %w", err)
 	}
-	defer client.Close()
+	defer func() { _ = client.Close() }()
 
 	// 3. Run the auto-migration to create the users table.
 	if err := client.Schema.Create(ctx); err != nil {
