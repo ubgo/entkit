@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file. Each sub-mo
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and each sub-module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### `passwordtype`, `encryptedtype`
+
+- Pin `github.com/ubgo/crypt` to the released `v0.2.0` instead of the pseudo-version `v0.0.0-20260504095124-aefc1abb0446`. No API or behaviour change: writes stay AES-256-GCM and reads stay `crypt.OpenAuto`.
+
+### `ent_passwordtype`, `ent_encryptedtype`, `examples`
+
+- Indirect `github.com/ubgo/crypt` requirement follows to `v0.2.0`.
+
 ## Initial release — 2026-05-05
 
 ### `jsonmap`
